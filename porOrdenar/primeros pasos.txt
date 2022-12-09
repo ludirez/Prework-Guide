@@ -1,0 +1,71 @@
+1.- configurar todos lo necesario apra que coprra WSL 2
+2.- descargar Ubuntu LTD
+3.- ejecutar ubunto y crear ususario y clave
+4.- crear la carpeta donde vamosa trabajar con mkdir "nombreDeCarpeta"
+5.- abriri VSCode en la terminal con: code .
+6.- se instalaran paquetes de compatibilidad
+7.- instalar extenciones de vscode para vscode-WSL
+8.- instalar terminal powershell y confgurar Ubuntu prederterminado
+
+9.- actualizar todo loq ue haya por actualizar en repositorio de dependencias
+    con: ~$ sudo apt-get update °pedirá clave de susario de ubuntu.
+
+10.-seguidamente se escribe: ~$ sudo apt-get upgrade para aplicar lo que 
+    acaba de mostrar que esta disponible
+
+10.1--los pasos para nodejs y npm estan obsoletos
+ya que ubuntu viene con una versionde node que ya no es compatible con reactjs
+por tanto hay que instalar un manejador de versiones de nodejs (nvm) y un manejador de paquetes nodejs (npm)
+y luego aprender a instalar versiones idenpendiente sy a moverse entre ellas.
+ir a paso 16
+
+11.- ahora nodejs con: ~$ sudo apt install nodejs 
+12.- verificar version de nodejs con: ~$ node -v (ultima instalda v10.19.0)
+
+13.-ahora otro paquede con: ~$ sudo apt instal npm 
+nodepaquetmanagen
+(manejador de paquete de nodejs para descargar dependencias o librerias)
+
+14.- inastalar ReactJs. lo instale en una carpeta /ReactJs para recordar que tiene su propia carpeta
+    y probar si sirve solo para esa carpeta o apra todo el directorio
+
+14. se isntal reactjs con: npx create-react-app test  (test seria el nombre de lac arpeta donde se instalara ReactJs)
+15.-hay que actualizar nodejs a 14 o superior
+
+16.- año 2022 julio
+npm -v 6.14.4
+nodejs -v v10.19.0 --->ultima vercion ala fecha -> 16.16
+
+se recomienda instalar adminitrador de versiones de nodejs "nvm"
+se recomienta eliminar la vercion de node js de ubuntu (-v v10.19.0) antes de istalar el "nvm"
+    como eliminar nodejs de ubuntu (si le llego a intalar)
+    -> ~$ sudo apt-get purge nodejs (tarda unos minutos)
+    -> ~$ sudo apt remove nodejs (este comando es mejor apra desinstalar jodejs)
+    -> ~$ sudo apt autoremove (tarda unos minutos)
+instalacion correcta
+paso 1-> ~$ sudo apt install curl
+paso 2-> curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash  (instala nvm)
+si se recibe erro de comando, cerra terminar y vuelve a intentar la isntalacion desde sudo apt install curl)
+verificar la instalcion con ~$ command -v nvm   (deve devolver "nvm")
+paso 3->verificar veriones de node instaladas con ~$ nvm ls 
+
+4.- instalar nodejs
+https://docs.microsoft.com/es-mx/windows/dev-environment/javascript/nodejs-on-wsl***
+Para cambiar la versión de Node.js que deseas usar para un proyecto, 
+crea un directorio de proyecto mkdir NodeTest, escribe el directorio cd NodeTest y, 
+a continuación, escribe nvm use node, para cambiar a la versión actual, o bien nvm 
+use --lts para cambiar a la versión de LTS. También puedes usar el número específico 
+de cualquier versión adicional que hayas instalado, como nvm use v8.2.1. 
+(Para enumerar todas las versiones de Node.js disponibles, usa el comando: nvm ls-remote).
+
+    ->instalar la ultima version con: ~$ nvm install --lts  (en este moemnte 16.16.0)
+    ->instalar version reciente de npm con : ~$npm install -g npm@8.14.0
+
+--instalaciond e ReactJs en unca parpeta donde se va a hacer el proyecto
+--> /ReactJs$ npx create-react-app miPrimerApp
+-->cd my-app
+-->npm start
+
+hemos instalado ReactJs...
+ctrl+c para apagar el servidor de prueba.
+sudo chow -R "nombreDeUsuarioUbuntu" ~/"carpetaDelProyecto"

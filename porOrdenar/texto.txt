@@ -1,0 +1,8 @@
+primera linea de texto
+
+2.- ehcho desde VScode
+
+3.- linea hecha despues de haber hecho el commit.
+git reconoce sambios y avisa para el siguiente "git status"
+
+esta es la linea 1 para recuperar ams tarde. se comitea jajaja para versionar.

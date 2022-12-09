@@ -1,0 +1,24 @@
+https://pages.github.com/
+
+hosting para que tu proyecto este alojado en un subdominio de github y se pueda mostrar funcionando
+
+istruciones en el link
+
+https://pages.github.com/
+
+crear repositorio con el mismo nombre de ususario de github, preferiblemente
+y que quede de la siguiente forma: username.github.io
+
+git clone git@github.com:xxxx.git
+    crear archivo index.html
+    git add
+    git commit -m ""
+    cambiar el nombre de la rama a main
+    git push origin main
+
+en el repositioro, en configuraciones, ir al apartado github peges
+selecionar rama principal
+
+
+
+

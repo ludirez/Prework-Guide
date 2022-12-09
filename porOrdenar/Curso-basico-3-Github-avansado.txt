@@ -1,0 +1,109 @@
+->Comando git log y sus variantes
+    git log                 ->para visualizar todos los commit de la rama en la que estemos
+    git log --all           ->muestras todo los commit del proyecto en todas sus ramas
+    git log --all --graph   ->muestra historia mas graficamente
+    git log --all --graph --decorate --oneline      ->muestras toda la historia del proyecto, mas comprimido
+
+->Creando alias. shortcut para llamar comandos largos
+    alias palabraclave="git log --all --graph --decorate --oneline"
+        asignará todo el comando largo a la palabraclave definida. como asignarle un valor a una variable
+        para llamarlo solo se escribe la palabra clave, enter
+
+    git config --global alias.palabraclave "comandos a asignarle"       ->este lo guarda permanentemente en git. con comillas.
+
+->Creando tags. Etiquetas adicionales para identificar veriones  u otros elementos importntes
+    git tag     ->muestra lista de tag creados
+        hay que actualizar y agragar mas info puntual ya que la clase de freddy no se ejecuta igual. supongo que po lo viejo del video.
+
+->Manejo de ramas
+    git branch                          ->para ver todas las ramas y saber en cual estoy
+    git branch "nombre de la rama"      ->sin comillas, crea rama
+    git branch -M "newname"             ->renombra la rama en la que se esta actualmente
+    git branch -D "nombreDeLaRama"      -> para eliminar rama
+	git checkout "nombre de rama"       ->para desplasarse entre ramas
+    git checkut -                       ->te devuelve a la rama anterior activa
+    git 
+    git show-branch                     ->muestra las ramas que hay y el ultimo cmmit de cada una
+    git show branch --all               ->igual anterior pero con mas detalles
+    git merge "nombreDeLaRama"          ->fusiona la mara actual con la rama que definimos en el comando.
+
+    https://www.gitkraken.com/  herramienta visual para hacer seguimiento de las ramas, commits y demas.
+
+    ->Agragar Rama local a Remoto
+        actualizar repociotrio local con add y commit
+        git pull origin main            ->para traer la ultima version del remoto
+        git push origin main            ->para subir todo actualizado en el pc
+        git checkout "nombreDeLaRama"   ->nos movemos a la rama que queremos subir
+        git push origin "nombreDeLaRama"->empujamos a el remoro (origin) nuestra rama local
+        
+->Flujo de trabajo profecional
+    pull requests       ->peticiones de colaboradores a agregar cabion en el main de un poryecto
+    fork o bifurcaciones. clonar el proyecto publico
+    despliegue a servidor (deploy) desplegar en un servidor clonando desde github y los cambios realizados se vean en al web
+
+->ignorar archivos en el repositorio con .gitignore
+    se crea un archivo de nombre .gitignore y dentro se le indica que archivos se van a ignorar y no se van a ir al repo remoto
+
+->Arreglo de errores
+    git rebase -->solo para uso local.
+                    se crea la rama donde se va a hacer el arreglo y se hace commit como normalmente se hace.
+                    se le indica que va a rebasar "adelantar" a la rama principal (u otra rama)
+                        git checkout arreglo
+                        git rebase main
+                    eso movera la historia de commit de arreglo como si fuese sido despues de main y no atras en la bifurcacion cuando se creó
+                    luego se debe finalmente unir y aqui no ha pasado nada. no deja huella al contrario del merge que deja historia en el log
+                        git checkout main
+                        git rebase arreglo          ->este seria el merge equivalente
+                        se debe eliminar la rama arreglo y no ha pasado nada.
+                    y listo. personalmente, no le veo utilidad. dice el profe que es mala practica y que si main se ha adelantado mucho, puede causar problemillas.
+
+    git stash -->para guardar en cambios en una memoria auxiliar y poder cambar de ramas sin hacer commit
+                    lo que realmente ahce es guardas los cambios que se han hecho sin haber hecho commit
+                    y devolverte a el ultimo commit realizado
+            git stash list      ->para ver los stash inicianos en la memoria
+            git stash pop       ->para vovler a traer lo que se guardo en mmeoria. debe hacerce el pop SOLO en la rama donde se creo. de lo cnotrairo genera conflicto
+            git stash drop      ->para eliminar lo que estaba en el stash sin asignarlo a algun lado
+            git stash branch nueva-rama     ->para asignarle el stash directamente a una nueva rama
+    
+    git clean -->para aliminar archivos que se generaron y no deben/queremos enviarse al repositirio. solo borrara lo que puede indexar.
+                por eso si hay archivos en .gitignore no los tomara en cuenta.
+        git clean --dry--run        ->mostrara los archivos no trakeados y lls enlista apra eliminacion
+        git clean -f                ->se borran las cosas enlistadas. no borrara carpetas
+
+    git cherry-pick NumCommit       ->se traera a la rama actual, el NumCimmit que le hemnos pasado de otra rama
+
+    git reflog          ->mostrara el historial de los camios hecho. aqui nada se borra. se usa para buscar el ultimo HEAD que funcionó para hacer reset y recuperar archivos o arreglar daños
+        git reset --SOFT DEAD#          ->quita el estage a los cambios. tengop que buscar mas info de el funcionamiento
+        git reset --HARD DEAD#          ->se resetea todo a antes del commmit que daño todo o donde se dañaron los archivos
+
+    git commit --amend               -->Para remendar el ultimo commit cuando se ha enviado pero se fue incompleto o con errores. trabajo local preferiblemente
+
+->Busquedas en el proyecto
+    git grep "palabraClave"         ->sin comillas, busca en todo el proyecto la palabraClave y mostrara donde esta
+    git grep -n "palabraClave"      ->mostrara el nuemro de linea donde esta
+    git grep -c "palabraClave"      ->mostrara el numero de veces usada
+    git grep -c "etiquedaHTML"      ->con comillas, mostrara las veces que se uso la etiqueta
+    
+    git log -S "palabraClave"       ->para buscar en la historia de los commit
+
+->Comandos y recursos colaborativos en Git y Github.
+    git shortlog                    ->imprime lo que ha hecho cada user del proyecto y el nombre de cada commit que ha realizado
+    git shortlog -sn                ->muestra el user y la cantidad de comits
+    git shortlog -sn --all          ->mostrara el numero de todos los comit hechos, hasta los borrados
+    git shortlog -sn --all --no-merges      ->no tendra enceunta los commit hechos con merge
+
+    git blame "archivo.extension"       ->muestra quien ha modificado que linea en el archivo deseado
+    git blame -c "archivo.extension"    ->lo mismo que lo anterior pero mas bonito =S
+    git blame "archivo.extension" -L#linea,#linea       -->busqueda de cambios por lineas
+    git blame "archivo.extension" -L#linea,#linea -c    ->lo mismo de lo anterior pero mas bonito.
+
+    git branch          ->veremos ramas locales
+    git branch -r       ->veremos als ramas remotas
+    git branch -a       ->imprime locales y remotas
+
+    apartado "insights" de un proyecto en github       ->mas cualidades inforamtivas para el trabajo en remoto.
+    
+
+
+
+

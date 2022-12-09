@@ -1,0 +1,78 @@
+git "comando" --help        ->para ver el manual uso completo y extendido del comando.
+
+        Luego de haber creado cuanta en github.
+        
+en consola:
+        git config --global user.name "nombre de ususario de github" ->con comillas}
+        git config --global user.email "correo registrado en github" ->con comilllas
+        git config --list  -->para listar y ver que quedo configurado
+
+->en la carpeta de trabajo - Flujo basico de trabajo
+    git init        ->inicia el seguimiento y registro de commits locales en la carpeta .git
+    ls -lha         ->la carpeta .git esta oculta, este comando la mostrará
+    git status      ->mostrara los quechivos trakeatos en rojo
+    git add archivo.extencion       ->modo 1: pasará el archivo de rojo a verde y preparalo para el commits
+    git add .                       ->modo 2: aprobara y agregara todos los archivos trakeados en rojo a la vez
+    git commit -m "mensaje"         ->guardará en el repositorio local los cambios. el mensaje es obligatorio y descriptivo de lo que se esta actualizadno ene l commit
+    
+->Para sacar del estado verde al rojo antes de hacer el commit:
+    git rm --cached "archivo.extension"     ->sin comillas, elimina los archivos en staging pero los mantiene en el disco duro.
+
+->Comandos adicionales de utilidad
+    git Log                         ->mostrará listado de commits realizados, su codigo de seguimiento para restaurarlo de ser encesario y el mensaje descriptivo para mayor claridad
+    git diff                        ->mostrará los cambios hechos en el ultimo archivo en staging
+
+->Creando Llave SSH
+    en consola, en la raiz del usuario -> ~$
+    ssh-keygen -t rsa -b 4096 -C "correo@ejemplo.com"
+        lease asi:
+            ssh-keygen  ->comando
+            -t          ->algoritmo de cifrado de Llave
+            rsa         ->algoritmo usado ene sta ocasion
+            -b          ->tamaño de la lalve en bites
+            4096        ->el tamaño asignado ene sta ocasion 
+            -C "x"      ->frase de codificacion donde X es el correo asociado a github
+
+        muestra la ruta donde se va a guarda la llave, le damos enter
+        pedira clave adicional. enter en vacio omitira
+        pedira reescribir la anterior clve adicional, enter para omitir nuevamente. 
+        se ha creado la llave privada y publica.
+
+->configurando llave privada
+    cd ~/.shh      ->desplaza a ruta
+    ls              ->muestra id_rsa (privada) y id_rsa.pub (publica)
+    eval "$(ssh-agent -s)"          ->comprobacion. puerto de servidor corriendo nativo en linux que se encargar encriptar y gestionar als llaves. debe arrojar "agent pid xxxx" donde X es un puerto. si lo muestra, todo ok.
+    ssh-add ~/.ssh/id_rsa           ->identificacion privada gregada
+
+->configurando llave publica en github
+    sudo apt install xclip      ->herramienta apra copiado de key seguro
+    xclip -selection clipboard < ~/.shh/id_rsa.pub
+        si no funciona el comando anterior, tambien se peude copiar manualmente con:
+            cat ~/.shh/id_rsa.pub       ->mostrará la keypub en consola, copiar y pegar en git hub en el apartado de llaves.
+
+->Subiendo a repositorio remoto
+    git brach -M main       ->cambiar la rama del repo local de nombre a main. para que conincida con la del repo remoto
+    git remote add origin git@github.com:nombreDelRepositorio.git   ->diciendole a git que hay un repo remoto llamado origen.
+    git remote -v   mostrara direcion apra hacer "fetch" (subir cosas)
+                    mostrara direcion para hacer "push" (enviar cosas)
+                    ->Si se debe cambiar o renombrar a donde apunta el origen:
+                        git remote set-url origin git@github.com:xxx/xxx.git
+
+    git push origin main    ->lease así: git enviale al origen la rama main
+
+->Bajando de repositorio remoto
+    ir al repositorio en github y en el boton code, deplegamos, seleccionamos SSH y copiamos la ruta.
+    antes debes tener el arbol de trabajo limpio. luego de hacer un add y un commit, con un status te dirá : nothing to commit, working tree clear.
+    en consola:
+    git brach -M main       ->cambiar la rama del repo local de nombre a main. para que conincida con la del repo remoto
+    git remote add origin git@github.com:nombreDelRepositorio.git   ->diciendole a git que hay un origen remoto
+    git remote -v   mostrara direcion apra hacer "fetch" (subir cosas)
+                    mostrara direcion para hacer "push" (enviar cosas)
+                        ->Si se debe cambiar o renombrar a donde apunta el origen:
+                        git remote set-url origin git@github.com:xxx/xxx.git
+                    los pasos  para bajar serian:
+                                    git fetch
+                                    git merge
+    o lo mismo que es:
+    git pull origin main    ->se traera todo lo del remoto al local. dará error pues no comparten el mismo hisrotial de commit. se arregla con :
+        git pull origin main --allow-unrelated-histories    ->despues del proceso ctrl+X apra salir
