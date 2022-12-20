@@ -1,0 +1,8 @@
+a ver.
+
+resumo.
+ si empiesas este archivo en cat, escribes algo y luego lo pasa sal background,
+ no se pierde loque lleves anotado pero no se va avisualizar.
+
+ asi que, mientras me hago pro, es menos cimplicado usar un editor de texto. 
+  nota. aprende a usar el editor cat correctamente.

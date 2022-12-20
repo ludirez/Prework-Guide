@@ -1,6 +1,20 @@
 Comandos avanzados de la terminal de Linux.
 	se pueden usar también en WSL
 
+## comunes
+	$ echo "cosa de salida"			->genera un standard Output de cualquier cosa que le pasemos
+	$ less [archivo]				->para explorar el contenido de un output
+	$ cat [archivo1] [archivo2]		->para concatenar varios output
+
+
+
+## pipe operator
+	permite que el standard output se convierta en el standard input de otro comando.
+	entiéndase: que lo que vota un comando(output) se le pasa a otro como input para que haga algo más
+	$ ls -lh | less		mostrará el ls dentro del comando less
+	$ ls | sort | tee archivosHome.txt		->"sort"ordena alfabéticamente una salida. "tee" Crea un archivo en base a una entrada
+
+
 
 ## Wildcards
 	serie de caracteres especiales que nos permiten realizar patrones de búsquedas.
@@ -99,13 +113,71 @@ ejercicios:
 
 ## Utilidades de RED
 	$ ifconfig					información de tarjeta de red y más
+	$ ip address
 	$ ping -c 4 www.google.com		"-c 4" limita las peticiones a 4. control+C para para la ejecución
 	$ ping -s 20 www.google.com		Para hacer pruebas con paquetes de 20 bytes escribimos:
 	$ curl www.google.com > index.html 		trae un archivo a manera de texto y lo podemos enviar a un archivo.
 	$ wget www.google.com		trae directamente el html de la pagina que le pasemos. mejor formateado de que curl
-	$ traceroute www.google.com		indica todos los pc por donde pasa mi petición antes de llegar a google.
+	$ traceroute www.google.com		indica todos "los pc" por donde pasa mi petición antes de llegar a google.
 	$ netstat -i				indica especificaciones de hardware de red
 
+## Compresión de Archivos en .tar y .zip
+	$ tar -cvf comprimir.tar comprimir
+		"-c" para comprimir
+		"v" para que sea visual,
+		"f" indicando que va a comprimir un file
+		"comprimir.tar" el nombre y extension con la que a a quedar el archivo
+		"comprimir" el nombre del file que se va a comprimir
+
+	$ tar -cvzf comprimir.tar.gz comprimir
+		"z" estará dando mejor calidad de compresión
+		".gz" ahi que añadirlo para que "z" funcione
+	
+	# ver el contenido sin descomprimirlo
+		$ tar tvf archivo.tar
+
+	# descomprimir .tar
+		$ tar -xzvf comprimir.tar.gz
+			"-x" para descomprimir
+	
+	$ zip -r comprimirConZip.zip comprimir
+	$ unzip comprimirConZip.zip
+
+## Manejo de Procesos
+	$ ps		muestra los procesos que están corriendo en la bash
+				PID proses ID
+	$ kill 		para terminar proceso. hay que buscar la manera correcta de usarlo
+		$ pkill firefox Acabas con el proceso usando el nombre en lugar del id
+		$ killall -nombre_del_proceso		para acabar con todos los procesos que coincidan con el nombre o el id.
+		$ kill -9 pidNum		es el identificador numérico del proceso
+		$ kill -9 processName	nombre del proceso
+		$ kill -9 PNAME			nombre del proceso que se quiere eliminar que puede ser una expresión regular
 
 
+	$ top		lista de procesos que san usando mas recursos.
+				presionar la tecla "h" mostrará las opciones de filtrado
+				ctrl+c cierra top
+	$ htop		hyper top.. mejorado, mas musculo y más pelos.
 
+	ejercicio.
+	ejecuta car & ls en la terminal
+	visualiza el proceso en ps
+	enséñame a matar el proceso con kill. =D
+
+	Enviando procesos al background(proceso en segundo plano) y devolverlos al foreground (trabajo en pantalla)
+		$ cat > unaNota.txt		escribimos texto y
+			ctrl+D		para terminar la edición
+			ctrl+Z		para pausar el programa y dejar este cat en el background de procesos
+		$ jobs		para consultar que procesos tenemos en background. [n] describe la posición del proceso
+		$ fg [n]	para traerlo de vuelta
+	si ejecutas un proceso que no te deja usar la terminal, hacemos ctrl+Z para pausarlo.
+	con jobs veremos el [n] del proceso, procedemos a ejecutar 
+	$ bg [n]	asi haremos que el proceso siga en segundo plano y deja la terminal libre.
+
+## Editores de texto en la terminal
+	VIM
+	NANO
+	Emacs
+
+## Personalizar la terminal de comandos
+	
